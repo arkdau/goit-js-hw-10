@@ -119,8 +119,8 @@ if (image === undefined) {
 function clearImage() {
 
   // image.style.visibility = (image.style.visibility === "hidden") ? '' : "hidden";
-image.style.visibility = "hidden"
-breedsHeader.innerHTML = '' ;
+image.style.visibility = "hidden";
+breedsHeader.innerHTML = '';
 breedsDesc.innerHTML = '';
 breedsTemperament.innerHTML = '';
 breedsSpan.innerHTML = '';

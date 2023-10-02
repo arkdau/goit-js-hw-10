@@ -78,6 +78,7 @@ breadSelect.addEventListener('change', function handleChange() {
         // clearImage();
         loaderMsg.innerHTML = '';
         errorMsg.innerHTML = 'Oops! Something went wrong! Try reloading the page!';
+        console.log('fetch Cat: ', error);
      });
 });
 
@@ -117,11 +118,9 @@ if (image === undefined) {
 }
 
 function clearImage() {
-
-  // image.style.visibility = (image.style.visibility === "hidden") ? '' : "hidden";
-image.style.visibility = "hidden";
-breedsHeader.innerHTML = '';
-breedsDesc.innerHTML = '';
-breedsTemperament.innerHTML = '';
-breedsSpan.innerHTML = '';
+  image.style.visibility = "hidden";
+  breedsHeader.innerHTML = '';
+  breedsDesc.innerHTML = '';
+  breedsTemperament.innerHTML = '';
+  breedsSpan.innerHTML = '';
 }

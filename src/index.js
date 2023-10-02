@@ -1,7 +1,7 @@
 import {fetchBreeds} from "./cat-api.js";
 import {fetchCatByBreed} from "./cat-api.js";
 
-let storedBreeds = []
+let storedBreeds = [];
 let kitty;
 let image;
 let breedId;
@@ -10,12 +10,6 @@ let breedsDesc;
 let breedsTemperament;
 let breedsSpan;
 let boxText;
-
-
-
-
-
-
 
 const  catInfo = document.querySelector('.cat-info');
 const breadSelect = document.querySelector('.breed-select');
@@ -34,7 +28,7 @@ fetchBreeds()
     .then((data) => {
 
       //filter to only include those with an `image` object
-      data = data.filter(img=> img.image?.url!=null)
+      data = data.filter(img=> img.image?.url!=null);
 
       storedBreeds = data;
 
@@ -43,7 +37,7 @@ fetchBreeds()
         let option = document.createElement('option');
 
         //skip any breeds that don't have an image
-        if(!breed.image)continue
+        if(!breed.image)continue;
 
         //use the current array index
         option.value = i;

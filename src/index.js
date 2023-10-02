@@ -44,6 +44,7 @@ fetchBreeds()
     .catch((error) => {
        loaderMsg.innerHTML = '';
        errorMsg.innerHTML = 'Oops! Something went wrong! Try reloading the page!';
+       console.log('fetch Breeds: ',error);
     });
 
 breadSelect.addEventListener('change', function handleChange() {

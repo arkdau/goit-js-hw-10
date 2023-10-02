@@ -17,7 +17,6 @@ errorMsg.innerHTML = '';
 fetchBreeds()
     .then((response) => {
         loaderMsg.innerHTML = '';
-         fetchError = false;
         // return response.json();
         return response.data;
     })

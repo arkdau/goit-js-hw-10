@@ -9,6 +9,7 @@ let breedsHeader;
 let breedsDesc;
 let breedsTemperament;
 let breedsSpan;
+let boxText;
 
 
 

@@ -5,6 +5,16 @@ let storedBreeds = []
 let kitty;
 let image;
 let breedId;
+let breedsHeader;
+let breedsDesc;
+let breedsTemperament;
+let breedsSpan;
+
+
+
+
+
+
 
 const  catInfo = document.querySelector('.cat-info');
 const breadSelect = document.querySelector('.breed-select');

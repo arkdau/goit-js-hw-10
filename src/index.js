@@ -83,29 +83,31 @@ function showImage(kitty) {
   errorMsg.innerHTML = '';
   catInfo.setAttribute('Style', 'Display: inline-flex');
 
-if (image === undefined) {
-  image = document.createElement("img");
-  image.setAttribute('width', '640');
-  image.setAttribute('height', '640');
-  catInfo.appendChild(image);
-  boxText = document.createElement("div");
-  boxText.setAttribute('Style', 'width: 550px; margin-left:20px');
-  breedsHeader = document.createElement("h1");
-  breedsDesc = document.createElement("p");
-  breedsTemperament = document.createElement("p");
-  breedsTemperament.setAttribute('Style', 'Display: inline;');
-  breedsSpan = document.createElement("strong");
-  catInfo.appendChild(boxText);
-  boxText.appendChild(breedsHeader);
-  boxText.appendChild(breedsDesc);
-  boxText.append(breedsSpan);
-  boxText.appendChild(breedsTemperament);
-}
-    if (image.style.visibility === "hidden") {
-      image.style.visibility = "visible";
-    };
-  // image.hiden=false;
+  if (image === undefined) {
+    image = document.createElement("img");
+    image.setAttribute('width', '640');
+    image.setAttribute('height', '640');
+    catInfo.appendChild(image);
+    boxText = document.createElement("div");
+    boxText.setAttribute('Style', 'width: 550px; margin-left:20px');
+    breedsHeader = document.createElement("h1");
+    breedsDesc = document.createElement("p");
+    breedsTemperament = document.createElement("p");
+    breedsTemperament.setAttribute('Style', 'Display: inline;');
+    breedsSpan = document.createElement("strong");
+    catInfo.appendChild(boxText);
+    boxText.appendChild(breedsHeader);
+    boxText.appendChild(breedsDesc);
+    boxText.append(breedsSpan);
+    boxText.appendChild(breedsTemperament);
+  };
+
   image.src = kitty.url;
+
+  if (image.style.visibility === "hidden") {
+    image.style.visibility = "visible";
+  };
+  // image.hiden=false;
   breedsHeader.innerText = kitty.breeds[0].name;
   breedsDesc.innerText = kitty.breeds[0].description;
   breedsSpan.innerText = 'Temperament: ';

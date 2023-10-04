@@ -19,7 +19,7 @@ maxBodyLength: Infinity,
 
 // Making a GET request using an axios instance from a connected library
 
-export function fetchCatByBreed(breedId, callback, callbckMsg, callbckError, callbckClear) {
+export function fetchCatByBreed(breedId, callback, callbckState, callbckMsg, callbckError, callbckClear) {
 
   callbckMsg();
   axios.get(`${CAT_API_URL}/images/search?breed_ids=${breedId}`, config)
@@ -37,7 +37,9 @@ export function fetchCatByBreed(breedId, callback, callbckMsg, callbckError, cal
         // breeds.url = response.data[0].url;
         // return (response.data);
         callbckClear();
+        callbckState({ images: response.data[0] });
         callback(response.data[0]);
+        // return response.data;
     })
     .catch(function (err) {
     // document.getElementById('people').innerHTML = '<li class="text-danger">' + err.message + '</li>';

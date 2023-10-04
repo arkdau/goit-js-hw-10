@@ -1,17 +1,24 @@
 import {fetchBreeds} from "./cat-api.js";
 import {fetchCatByBreed} from "./cat-api.js";
 
-let storedBreeds = [];
-let kitty;
+// let storedBreeds = [];
+// let kitty;
 let image;
 let breedId;
-let breedsHeader;
-let breedsDesc;
-let breedsTemperament;
-let breedsSpan;
-let boxText;
+// let breedsHeader;
+// let breedsDesc;
+// let breedsTemperament;
+// let breedsSpan;
+// let boxText;
 
-const  catInfo = document.querySelector('.cat-info');
+state = {
+  images: [],
+  breeds: [],
+  selected_breed: 0
+};
+
+
+
 const breadSelect = document.querySelector('.breed-select');
 // const loaderMsg = document.querySelector('.loader');
 // const errorMsg =  document.querySelector('.error') ;
@@ -25,9 +32,10 @@ function msgInCommingSoon() {
   document.querySelector('.error').innerText = '';
 };
 function msgError() {
-  document.querySelector('.loader').innerText = '';
+  document.querySelector('.loader').setAttribute('Style', 'Display:none');
   document.querySelector('.error').innerText =
     'Oops! Something went wrong! Try reloading the page!';
+  // document.querySelector('.').setAttribute('Style', 'Display:none');
 };
 
 function clear() {
@@ -70,6 +78,11 @@ fetchBreeds(msgInCommingSoon, msgError, clear);
 //
 breadSelect.addEventListener('change', function handleChange() {
 breedId = breadSelect.value;
+
+ console.log("Breed Selected. ID:",breadSelect.value);
+    setState({selected_breed:breadSelect.value});
+    loadBreedImages();
+
   // breedId = storedBreeds[breadSelect.selectedIndex].id;
   // if (image !== undefined) {
     // clearImage();
@@ -78,7 +91,7 @@ breedId = breadSelect.value;
   // };
 console.log('breedSelect: ', breadSelect);
 console.log('breedID: ', breedId);
-fetchCatByBreed(breedId, showImage, msgInCommingSoon, msgError, clear);
+// fetchCatByBreed(breedId, showImage, msgInCommingSoon, msgError, clear);
 
 
   // fetchCatByBreed(breedId)
@@ -100,10 +113,164 @@ fetchCatByBreed(breedId, showImage, msgInCommingSoon, msgError, clear);
 });
 
 
+function setState(obj) {
+  const key = Object.keys(obj);
+  const value = Object.values(obj);
+  state[key] = value[0];
+  console.log(`key: ${key} value: ${value}`);
+  console.log('state: ', state);
+}
+
+
+ function getCatsImagesByBreed(breed_id, amount) {
+      //const res = await axios('/images/search?breed_ids='+breed_id + "&limit="+ amount);
+      fetchCatByBreed(breed_id, render, setState, msgInCommingSoon, msgError, clear);
+      // console.table('res:', res);
+      // return res;
+  }
+
+
+
+
+function loadBreedImages() {
+  console.log('Load Breed Images:', state.selected_breed)
+  let breed_images = getCatsImagesByBreed(state.selected_breed, 5)
+  console.log('breed_images: ', breed_images);
+  setState({ images: breed_images });
+}
+
+
+function render(kitty) {
+
+
+const fragment = document.createDocumentFragment();
+
+
+
+    const catInfo = document.createElement('div');
+    catInfo.setAttribute('class', 'cat-info');
+    catInfo.setAttribute('Style', 'Display: inline-flex; ');
+
+    // const catInfo = document.querySelector('cat-info');
+
+    image = document.createElement("img");
+    image.setAttribute('width', '640');
+    image.setAttribute('height', '640');
+    image.src = kitty.url;
+
+    boxText = document.createElement("div");
+    boxText.setAttribute('Style', 'width: 550px; margin-left:20px');
+
+    breedsHeader = document.createElement("h1");
+    breedsDesc = document.createElement("p");
+
+    breedsTemperament = document.createElement("p");
+    breedsTemperament.setAttribute('Style', 'Display: inline;');
+    breedsSpan = document.createElement("strong");
+
+breedsHeader.innerText = kitty.breeds[0].name;
+breedsDesc.innerText = kitty.breeds[0].description;
+breedsSpan.innerText = 'Temperament: ';
+breedsTemperament.innerText =kitty.breeds[0].temperament;
+
+    fragment.appendChild(catInfo);
+
+    catInfo.appendChild(image);
+    catInfo.appendChild(boxText);
+    boxText.appendChild(breedsHeader);
+    boxText.appendChild(breedsDesc);
+    boxText.append(breedsSpan);
+    boxText.appendChild(breedsTemperament);
+
+
+
+    const box = document.querySelector('.cat-info');
+    if (!catInfo.hasChildNodes()) {
+      box.appendChild(fragment);
+    }else {
+      box.replaceWith(fragment);
+    };
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+function render_1(kitty) {
+  let markup;
+  const catInfo = document.querySelector('.cat-info');
+  catInfo.setAttribute('Style', 'Display: inline-flex; ');
+
+  console.log('node-1: ', catInfo.hasChildNodes());
+
+  if (!catInfo.hasChildNodes()) {
+    markup =`<img class="image" src=${kitty.url}  width="640", height="640"></img>`;
+    catInfo.insertAdjacentHTML('beforeend', markup);
+    markup = `<div class="box text" 'width: 550px; margin-left:20px'>
+                      <h1 class="header">HEADER</h1>
+                      <p class="description">description</p>
+                      <p class="temperament"><strong>Temperament: </strong>temperament tekst</p>
+                    </div>`
+  }else {
+
+    // boxText.remove();
+    const image = document.querySelector('.image');
+    image.src = `${kitty.url}`;
+    // catInfo.insertAdjacentHTML('beforeend',
+    markup = `<div class="temp" 'width: 550px; margin-left:20px'>
+                      <h1 class="header">HEADER</h1>
+                      <p class="description">description</p>
+                      <p class="temperament"><strong>Temperament: </strong>temperament tekst</p>
+                    </div>`
+
+  // catInfo.replaceWith(boxText);
+  }
+const temp = document.querySelector('.temp');
+
+  catInfo.insertAdjacentHTML('beforeend', markup);
+  const temp_1 = document.querySelector('.temp');
+  // document.renameNode(temp, null, "boxText");
+  // boxText.remove();
+  temp.replaceWith(temp_1);
+
+  const fragment = document.createDocumentFragment();
+
+
+
+
+
+
+
+
+    // const new_markup =`<img  class ="new image" src=${kitty.url}  width="640", height="640"></img>`
+    // catInfo.insertAdjacentHTML('beforeend', new_markup);
+    // const newImage = document.querySelector('.new image');
+    // image.replaceWith(newImage);
+
+
+console.log('node-2: ', catInfo.hasChildNodes());
+  console.log('render',kitty);
+
+}
+
+
+
 function showImage(kitty) {
 
 
-  catInfo.setAttribute('Style', 'Display: inline-flex;');
+  const catInfo = document.querySelector('.cat-info');
+  catInfo.setAttribute('Style', 'Display: inline-flex; ');
+
   // loaderMsg.setAttribute('Style', 'Display: none;');
   // errorMsg.setAttribute('Style', 'Display: none');
 
@@ -112,9 +279,10 @@ function showImage(kitty) {
     image = document.createElement("img");
     image.setAttribute('width', '640');
     image.setAttribute('height', '640');
+    // catInfo. document.querySelector('cat-info');
     catInfo.appendChild(image);
-    boxText = document.createElement("div");
-    boxText.setAttribute('Style', 'width: 550px; margin-left:20px');
+      boxText = document.createElement("div");
+      boxText.setAttribute('Style', 'width: 550px; margin-left:20px');
     breedsHeader = document.createElement("h1");
     breedsDesc = document.createElement("p");
     breedsTemperament = document.createElement("p");
@@ -137,7 +305,7 @@ function showImage(kitty) {
   breedsDesc.innerText = kitty.breeds[0].description;
   breedsSpan.innerText = 'Temperament: ';
   breedsTemperament.innerText =kitty.breeds[0].temperament;
-}
+// }
 
 // function clearImage() {
 //   image.style.visibility = "hidden";
@@ -145,4 +313,4 @@ function showImage(kitty) {
 //   breedsDesc.innerHTML = '';
 //   breedsTemperament.innerHTML = '';
 //   breedsSpan.innerHTML = '';
-// }
+}

@@ -13,75 +13,100 @@ let boxText;
 
 const  catInfo = document.querySelector('.cat-info');
 const breadSelect = document.querySelector('.breed-select');
-const loaderMsg = document.querySelector('.loader');
-const errorMsg =  document.querySelector('.error') ;
+// const loaderMsg = document.querySelector('.loader');
+// const errorMsg =  document.querySelector('.error') ;
+//
+// loaderMsg.innerHTML = 'Loading data, please wait...';
+// errorMsg.innerHTML = '';
 
-loaderMsg.innerHTML = 'Loading data, please wait...';
-errorMsg.innerHTML = '';
+function msgInCommingSoon() {
+  document.querySelector('.loader').innerText =
+    'Loading data, please wait...';
+  document.querySelector('.error').innerText = '';
+};
+function msgError() {
+  document.querySelector('.loader').innerText = '';
+  document.querySelector('.error').innerText =
+    'Oops! Something went wrong! Try reloading the page!';
+};
 
-fetchBreeds()
-    .then((response) => {
-        loaderMsg.innerHTML = '';
-        // return response.json();
-        return response.data;
-    })
-    .then((data) => {
+function clear() {
+  document.querySelector('.loader').innerText = ' ';
+  document.querySelector('.error').innerText = ' ';
+};
 
-      //filter to only include those with an `image` object
-      data = data.filter(img=> img.image?.url!=null);
-
-      storedBreeds = data;
-
-      for (let i = 0; i < storedBreeds.length; i++) {
-        const breed = storedBreeds[i];
-        let option = document.createElement('option');
-
-        //skip any breeds that don't have an image
-        if(!breed.image)continue;
-
-        //use the current array index
-        option.value = i;
-        option.innerHTML = `${breed.name}`;
-        document.querySelector('.breed-select').appendChild(option);
-      }
-    })
-    .catch((error) => {
-       loaderMsg.innerHTML = '';
-       errorMsg.innerHTML = 'Oops! Something went wrong! Try reloading the page!';
-       console.log('fetch Breeds: ',error);
-    });
-
+clear();
+fetchBreeds(msgInCommingSoon, msgError, clear);
+    // .then((response) => {
+//         loaderMsg.innerHTML = '';
+//         // return response.json();
+//         return response.data;
+//     })
+//     .then((data) => {
+//
+//       //filter to only include those with an `image` object
+//       data = data.filter(img=> img.image?.url!=null);
+//
+//       storedBreeds = data;
+//
+//       for (let i = 0; i < storedBreeds.length; i++) {
+//         const breed = storedBreeds[i];
+//         let option = document.createElement('option');
+//
+//         //skip any breeds that don't have an image
+//         if(!breed.image)continue;
+//
+//         //use the current array index
+//         option.value = i;
+//         option.innerHTML = `${breed.name}`;
+//         document.querySelector('.breed-select').appendChild(option);
+//       }
+//     })
+//     .catch((error) => {
+//        loaderMsg.innerHTML = '';
+//        errorMsg.innerHTML = 'Oops! Something went wrong! Try reloading the page!';
+//        console.log('fetch Breeds: ',error);
+//     });
+//
 breadSelect.addEventListener('change', function handleChange() {
-  breedId = storedBreeds[breadSelect.selectedIndex].id;
-  if (image !== undefined) {
-    clearImage();
-    loaderMsg.innerHTML = 'Loading data, please wait...';
-    errorMsg.innerHTML = '';
-  };
+breedId = breadSelect.value;
+  // breedId = storedBreeds[breadSelect.selectedIndex].id;
+  // if (image !== undefined) {
+    // clearImage();
+    // loaderMsg.innerHTML = 'Loading data, please wait...';
+    // errorMsg.innerHTML = '';
+  // };
+console.log('breedSelect: ', breadSelect);
+console.log('breedID: ', breedId);
+fetchCatByBreed(breedId, showImage, msgInCommingSoon, msgError, clear);
 
-  fetchCatByBreed(breedId)
-     .then((response) => {
-         loaderMsg.innerHTML = '';
-         // return response.json();
-         return response.data;
-     })
-     .then((data) => {
-       kitty = data[0];
-       showImage(kitty);
-     })
-     .catch((error) => {
-        // clearImage();
-        loaderMsg.innerHTML = '';
-        errorMsg.innerHTML = 'Oops! Something went wrong! Try reloading the page!';
-        console.log('fetch Cat: ', error);
-     });
+
+  // fetchCatByBreed(breedId)
+  //    .then((response) => {
+  //        loaderMsg.innerHTML = '';
+  //        // return response.json();
+  //        return response.data;
+  //    })
+  //    .then((data) => {
+  //      kitty = data[0];
+  //      showImage(kitty);
+  //    })
+  //    .catch((error) => {
+  //       // clearImage();
+  //       loaderMsg.innerHTML = '';
+  //       errorMsg.innerHTML = 'Oops! Something went wrong! Try reloading the page!';
+  //       console.log('fetch Cat: ', error);
+  //    });
 });
 
 
 function showImage(kitty) {
-  loaderMsg.innerHTML = '';
-  errorMsg.innerHTML = '';
-  catInfo.setAttribute('Style', 'Display: inline-flex');
+
+
+  catInfo.setAttribute('Style', 'Display: inline-flex;');
+  // loaderMsg.setAttribute('Style', 'Display: none;');
+  // errorMsg.setAttribute('Style', 'Display: none');
+
 
   if (image === undefined) {
     image = document.createElement("img");
@@ -114,10 +139,10 @@ function showImage(kitty) {
   breedsTemperament.innerText =kitty.breeds[0].temperament;
 }
 
-function clearImage() {
-  image.style.visibility = "hidden";
-  breedsHeader.innerHTML = '';
-  breedsDesc.innerHTML = '';
-  breedsTemperament.innerHTML = '';
-  breedsSpan.innerHTML = '';
-}
+// function clearImage() {
+//   image.style.visibility = "hidden";
+//   breedsHeader.innerHTML = '';
+//   breedsDesc.innerHTML = '';
+//   breedsTemperament.innerHTML = '';
+//   breedsSpan.innerHTML = '';
+// }

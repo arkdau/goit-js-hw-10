@@ -40,7 +40,7 @@ fetchBreeds(msgInCommingSoon, msgError, clear);
 //
 ///////
 breadSelect.addEventListener('change', function handleChange() {
-   breedId = breadSelect.value;
+   const breedId = breadSelect.value;
 
    // setState({selected_breed:breadSelect.value});
    fetchCatByBreed(breedId, render, msgInCommingSoon, msgError, clear);

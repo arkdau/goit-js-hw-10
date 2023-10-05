@@ -19,7 +19,7 @@ const config = {
 
 // Making a GET request using an axios instance from a connected library
 
-export function fetchCatByBreed(breedId, callback, callbckState, callbckMsg, callbckError, callbckClear) {
+export function fetchCatByBreed(breedId, callback, callbckMsg, callbckError, callbckClear) {
 
   callbckMsg();
   axios.get(`${CAT_API_URL}/images/search?breed_ids=${breedId}`, config)
@@ -31,7 +31,7 @@ export function fetchCatByBreed(breedId, callback, callbckState, callbckMsg, cal
         console.log('header:', response.headers);
         console.log('config: ', response.config);
         callbckClear();
-        callbckState({ images: response.data[0] });
+        // callbckState({ images: response.data[0] });
         callback(response.data[0]);
     })
     .catch(function (err) {

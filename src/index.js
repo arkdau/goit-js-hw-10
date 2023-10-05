@@ -1,11 +1,11 @@
 import {fetchBreeds} from "./cat-api.js";
 import {fetchCatByBreed} from "./cat-api.js";
 
-state = {
-  images: [],
-  breeds: [],
-  selected_breed: 0
-};
+// const state = {
+//   images: [],
+//   breeds: [],
+//   selected_breed: 0
+// };
 
 const breadSelect = document.querySelector('.breed-select');
 
@@ -42,17 +42,17 @@ fetchBreeds(msgInCommingSoon, msgError, clear);
 breadSelect.addEventListener('change', function handleChange() {
    breedId = breadSelect.value;
 
-   setState({selected_breed:breadSelect.value});
-   fetchCatByBreed(breedId, render, setState, msgInCommingSoon, msgError, clear);
+   // setState({selected_breed:breadSelect.value});
+   fetchCatByBreed(breedId, render, msgInCommingSoon, msgError, clear);
 });
 
-function setState(obj) {
-  const key = Object.keys(obj);
-  const value = Object.values(obj);
-  state[key] = value[0];
-  console.log(`key: ${key} value: ${value}`);
-  console.log('state: ', state);
-}
+// function setState(obj) {
+//   const key = Object.keys(obj);
+//   const value = Object.values(obj);
+//   state[key] = value[0];
+//   console.log(`key: ${key} value: ${value}`);
+//   console.log('state: ', state);
+// }
 
 ////////////////////////////////////////////////////////////////////////////
 //

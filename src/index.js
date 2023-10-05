@@ -67,7 +67,7 @@ function render(kitty) {
     catInfo.setAttribute('class', 'cat-info');
     catInfo.setAttribute('Style', 'Display: inline-flex; ');
 
-     markupBoxText = `<img src="${kitty.url}" width="640" height="640"></img>
+     const markupBoxText = `<img src="${kitty.url}" width="640" height="640"></img>
                       <div Style="width: 550px; margin-left:20px">
                         <h1>${kitty.breeds[0].name}</h1>
                         <p>${kitty.breeds[0].description}</p>

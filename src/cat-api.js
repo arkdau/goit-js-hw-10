@@ -25,11 +25,11 @@ export function fetchCatByBreed(breedId, callback, callbckMsg, callbckError, cal
   axios.get(`${CAT_API_URL}/images/search?breed_ids=${breedId}`, config)
     .then(function (response) {
         // console.log(response);
-        console.log('data: ', response.data);
-        console.log('status: ', response.status);
-        console.log('status Text: ', response.statusText);
-        console.log('header:', response.headers);
-        console.log('config: ', response.config);
+        // console.log('data: ', response.data);
+        // console.log('status: ', response.status);
+        // console.log('status Text: ', response.statusText);
+        // console.log('header:', response.headers);
+        // console.log('config: ', response.config);
         callbckClear();
         // callbckState({ images: response.data[0] });
         callback(response.data[0]);

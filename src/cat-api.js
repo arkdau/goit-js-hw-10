@@ -21,10 +21,8 @@ const config = {
 
 export function fetchCatByBreed(breedId, callbckError) {
 
-  // callbckMsg();
 return  axios.get(`${CAT_API_URL}/images/search?breed_ids=${breedId}`, config)
     .then(function (response) {
-      // console.log('2', response.data);
         return response.data;
     })
     .catch(function (err) {
@@ -34,10 +32,9 @@ return  axios.get(`${CAT_API_URL}/images/search?breed_ids=${breedId}`, config)
 }
 
 export function fetchBreeds(callbckError) {
-  // callbckMsg();
   return axios.get(`${CAT_API_URL}/breeds`, config)
     .then(function (response) {
-      console.log('return: ', response.data);
+      // console.log('return: ', response.data);
       return response.data;
       })
     .catch(function (err) {

@@ -35,7 +35,6 @@ function  getBreeds() {
   clear();
     fetchBreeds(msgError)
       .then((value) => {
-        console.log('promise: ', value);
 
         //filter to only include those with an `image` object
         const data = value.filter(img=> img.image?.url!=null);
@@ -64,11 +63,10 @@ getBreeds();
 ///////
 breadSelect.addEventListener('change', function handleChange() {
    const breedId = breadSelect.value;
-    msgInCommingSoon();
+    // msgInCommingSoon();
    // setState({selected_breed:breadSelect.value});
    fetchCatByBreed(breedId, clear)
      .then((value) => {
-       console.log('3: ', value[0].breeds);
       render(value[0]);
      })
      .catch((error) => {

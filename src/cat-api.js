@@ -19,20 +19,13 @@ const config = {
 
 // Making a GET request using an axios instance from a connected library
 
-export function fetchCatByBreed(breedId, callback, callbckMsg, callbckError, callbckClear) {
+export function fetchCatByBreed(breedId, callbckError) {
 
-  callbckMsg();
-  axios.get(`${CAT_API_URL}/images/search?breed_ids=${breedId}`, config)
+  // callbckMsg();
+return  axios.get(`${CAT_API_URL}/images/search?breed_ids=${breedId}`, config)
     .then(function (response) {
-        // console.log(response);
-        // console.log('data: ', response.data);
-        // console.log('status: ', response.status);
-        // console.log('status Text: ', response.statusText);
-        // console.log('header:', response.headers);
-        // console.log('config: ', response.config);
-        callbckClear();
-        // callbckState({ images: response.data[0] });
-        callback(response.data[0]);
+      // console.log('2', response.data);
+        return response.data;
     })
     .catch(function (err) {
       callbckError();
@@ -40,26 +33,12 @@ export function fetchCatByBreed(breedId, callback, callbckMsg, callbckError, cal
   });
 }
 
-export function fetchBreeds(callbckMsg, callbckError, callbckClear) {
-  callbckMsg();
-  axios.get(`${CAT_API_URL}/breeds`, config)
+export function fetchBreeds(callbckError) {
+  // callbckMsg();
+  return axios.get(`${CAT_API_URL}/breeds`, config)
     .then(function (response) {
-      callbckClear();
-      // console.log('data: ', response.data);
-      // console.log('status: ', response.status);
-      let data = response.data;
-      //filter to only include those with an `image` object
-      data = data.filter(img=> img.image?.url!=null);
-
-      const breadSelect = document.querySelector('.breed-select');
-      breadSelect.setAttribute('Style', 'display: block; margin-bottom: 20px');
-      // let id=0;
-      breadSelect.insertAdjacentHTML('beforeend',
-        data.map(function (breed) {
-           return (
-             `<option value="${breed.id}">${breed.name}</option>`
-           );
-        }).join(''));
+      console.log('return: ', response.data);
+      return response.data;
       })
     .catch(function (err) {
       callbckError();

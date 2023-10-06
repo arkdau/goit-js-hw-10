@@ -31,8 +31,31 @@ clear();
 //  Download data from the server (list of cat breeds) and create <select>
 //
 ///////
-fetchBreeds(msgInCommingSoon, msgError, clear);
+function  getBreeds() {
+  clear();
+    fetchBreeds(msgError)
+      .then((value) => {
+        console.log('promise: ', value);
 
+        //filter to only include those with an `image` object
+        data = value.filter(img=> img.image?.url!=null);
+
+        const breadSelect = document.querySelector('.breed-select');
+        breadSelect.setAttribute('Style', 'display: block; margin-bottom: 20px');
+        breadSelect.insertAdjacentHTML('beforeend',
+        data.map(function (breed) {
+          return (
+            `<option value="${breed.id}">${breed.name}</option>`
+          );
+        }).join(''));
+      })
+     .catch( (error) => {
+       msgError();
+       console.log('error: ', error);
+     });
+}
+
+getBreeds();
 
 ///////////////////////////////////////////////////////////////////////////
 //
@@ -41,18 +64,18 @@ fetchBreeds(msgInCommingSoon, msgError, clear);
 ///////
 breadSelect.addEventListener('change', function handleChange() {
    const breedId = breadSelect.value;
-
+    msgInCommingSoon();
    // setState({selected_breed:breadSelect.value});
-   fetchCatByBreed(breedId, render, msgInCommingSoon, msgError, clear);
+   fetchCatByBreed(breedId, clear)
+     .then((value) => {
+       console.log('3: ', value[0].breeds);
+      render(value[0]);
+     })
+     .catch((error) => {
+       msgError();
+       console.log(error);
+    });
 });
-
-// function setState(obj) {
-//   const key = Object.keys(obj);
-//   const value = Object.values(obj);
-//   state[key] = value[0];
-//   console.log(`key: ${key} value: ${value}`);
-//   console.log('state: ', state);
-// }
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -61,6 +84,7 @@ breadSelect.addEventListener('change', function handleChange() {
 ///////
 function render(kitty) {
 
+  clear();
   const fragment = document.createDocumentFragment();
 
     const catInfo = document.createElement('div');

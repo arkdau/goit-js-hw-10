@@ -38,7 +38,7 @@ function  getBreeds() {
         console.log('promise: ', value);
 
         //filter to only include those with an `image` object
-        data = value.filter(img=> img.image?.url!=null);
+        const data = value.filter(img=> img.image?.url!=null);
 
         const breadSelect = document.querySelector('.breed-select');
         breadSelect.setAttribute('Style', 'display: block; margin-bottom: 20px');
